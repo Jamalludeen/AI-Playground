@@ -24,7 +24,6 @@ def fetch_website_contents(url):
         text = ""
     return (title + "\n\n" + text)[:2_000]
 
-print(fetch_website_contents("https://www.udemy.com"))
 
 def fetch_website_links(url):
     """
