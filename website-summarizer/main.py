@@ -46,7 +46,16 @@ response = requests.post(
     "http://localhost:11434/v1/chat/completions",
     json={
         "model": "gemma3:270m",
-        "messages": [{"role": "system", "content": system_prompt + ' ' + udemy}],
+        "messages": [
+            {
+                "role": "system",
+                "content": system_prompt
+            },
+            {
+                "role": "user",
+                "content": f"Analyze this website content:\n\n{udemy}"
+            }
+        ]
     }
 )
 print(response.json()["choices"][0]["message"]["content"])
