@@ -1,6 +1,17 @@
 from scrapper import fetch_website_contents, fetch_website_links
+from dotenv import load_dotenv
+from openai import OpenAI
 import requests
+import os
 
+load_dotenv(override=True)
+
+
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+
+GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
+
+openai = OpenAI(base_url=GEMINI_BASE_URL, api_key=GOOGLE_API_KEY)
 
 udemy = fetch_website_contents("https://www.udemy.com")
 
@@ -58,4 +69,15 @@ response = requests.post(
         ]
     }
 )
-print(response.json()["choices"][0]["message"]["content"])
+
+gemini_response = openai.chat.completions.create(
+    model='gemini-4-hydrogen', 
+    messages=[
+        {'role': 'system', 'content': system_prompt},
+        {'role': 'user', 'content': f"Analyze this website content:\n\n{udemy}"}
+    ]
+)
+
+# print(response.json()["choices"][0]["message"]["content"])
+
+print("gemini: ", gemini_response.choices[0].message.content)
