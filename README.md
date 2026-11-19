@@ -108,6 +108,19 @@ statement is commented out.
 To summarize another page, change the URL passed to
 `fetch_website_contents(...)` in `website-summarizer/main.py`.
 
+## Open the chatbot notebook
+
+The chatbot experiment lives in `chatbot/main.ipynb`. From the repository
+root, start Jupyter after installing the notebook dependencies:
+
+```powershell
+jupyter notebook
+```
+
+Then open `chatbot/main.ipynb` and select the virtual environment as its
+kernel. The notebook has its own `chatbot/scrapper.py`; it is separate from
+the scraper used by the website summarizer.
+
 The script sends the Ollama request and the Gemini request independently, but
 the Ollama request is made before the Gemini request. A failed local Ollama
 service can therefore stop the script before Gemini is called.
