@@ -42,16 +42,32 @@ overview, main offerings, target audience, key features, and a short summary.
 
 ## Prerequisites
 
-- Python 3.10 or newer.
-- Internet access for fetching the target webpage and calling Gemini.
-- An API key for the Gemini-compatible endpoint.
-- [Ollama](https://ollama.com/) running locally at `http://localhost:11434` if
 	you want the local request in `main.py` to succeed.
-- The Ollama model `gemma3:270m` available locally:
 
 	```powershell
 	ollama pull gemma3:270m
 	```
+
+## Installation
+
+From the repository root, create and activate a virtual environment, then
+install the packages imported by the summarizer:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install beautifulsoup4 requests python-dotenv openai
+```
+
+For the chatbot notebook, install Jupyter as well:
+
+```powershell
+python -m pip install jupyter
+```
+
+There is currently no `requirements.txt` or `pyproject.toml`; the commands
+above are the source-of-truth dependency setup for the current code.
 
 The script sends the Ollama request and the Gemini request independently, but
 the Ollama request is made before the Gemini request. A failed local Ollama
