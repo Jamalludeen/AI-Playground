@@ -40,6 +40,20 @@ The website summarizer currently follows this flow:
 The generated response is requested in Markdown with sections for the website
 overview, main offerings, target audience, key features, and a short summary.
 
+
+## Scraper behavior
+
+`website-summarizer/scrapper.py` exposes two helper functions:
+
+- `fetch_website_contents(url)` performs an HTTP GET, parses HTML with
+	Beautiful Soup, removes common non-content elements, and returns the title
+	plus visible text truncated to 2,000 characters.
+- `fetch_website_links(url)` returns non-empty `href` values from page links.
+
+Both helpers use a browser-like `User-Agent` header. They currently do not set
+timeouts, call `raise_for_status()`, normalize relative links, or handle
+network and parsing exceptions. Those are useful next improvements if this
+experiment becomes a reusable service.
 ## Prerequisites
 
 	you want the local request in `main.py` to succeed.
