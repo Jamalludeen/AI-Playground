@@ -54,13 +54,19 @@ Both helpers use a browser-like `User-Agent` header. They currently do not set
 timeouts, call `raise_for_status()`, normalize relative links, or handle
 network and parsing exceptions. Those are useful next improvements if this
 experiment becomes a reusable service.
+
 ## Prerequisites
 
-	you want the local request in `main.py` to succeed.
+- Python 3.10 or newer.
+- Internet access for fetching the target webpage and calling Gemini.
+- An API key for the Gemini-compatible endpoint.
+- [Ollama](https://ollama.com/) running locally at `http://localhost:11434` if
+  you want the local request in `main.py` to succeed.
+- The Ollama model `gemma3:270m` available locally:
 
-	```powershell
-	ollama pull gemma3:270m
-	```
+  ```powershell
+  ollama pull gemma3:270m
+  ```
 
 ## Installation
 
@@ -109,10 +115,10 @@ The current endpoint and model values are defined directly in
 2. Activate the virtual environment.
 3. From the summarizer directory, run:
 
-	```powershell
-	Set-Location website-summarizer
-	python main.py
-	```
+   ```powershell
+   Set-Location website-summarizer
+   python main.py
+   ```
 
 The target URL is currently hard-coded as `https://www.udemy.com` in
 `main.py`. The script prints the Gemini-generated Markdown summary. The local
@@ -135,6 +141,44 @@ Then open `chatbot/main.ipynb` and select the virtual environment as its
 kernel. The notebook has its own `chatbot/scrapper.py`; it is separate from
 the scraper used by the website summarizer.
 
-The script sends the Ollama request and the Gemini request independently, but
-the Ollama request is made before the Gemini request. A failed local Ollama
-service can therefore stop the script before Gemini is called.
+The summarizer sends the Ollama request and the Gemini request independently,
+but the Ollama request is made before the Gemini request. A failed local
+Ollama service can therefore stop the script before Gemini is called.
+
+## Troubleshooting
+
+### `ModuleNotFoundError`
+
+Activate the virtual environment and install the packages from the
+Installation section. Run `python -m pip show openai requests beautifulsoup4`
+to confirm they are installed in the active interpreter.
+
+### Gemini authentication fails
+
+Check that `.env` is in the repository root, that it contains
+`GOOGLE_API_KEY`, and that the key is valid for the configured Gemini
+OpenAI-compatible endpoint.
+
+### Ollama connection fails
+
+Start Ollama, verify that it is listening on port `11434`, and confirm the
+model name with `ollama list`. The current script does not catch request
+errors, so connection failures appear as Python exceptions.
+
+### The summary is incomplete
+
+The scraper intentionally limits extracted content to 2,000 characters and
+removes several HTML elements. Pages that render most content with JavaScript
+may not provide that content in the initial HTTP response.
+
+## Contributing
+
+Keep changes focused and update this README when commands, endpoints, models,
+or project structure change. Before opening a pull request:
+
+```powershell
+python -m compileall website-summarizer chatbot
+git diff --check
+```
+
+The repository does not yet include automated tests or a dependency lockfile.
