@@ -69,6 +69,26 @@ python -m pip install jupyter
 There is currently no `requirements.txt` or `pyproject.toml`; the commands
 above are the source-of-truth dependency setup for the current code.
 
+## Configuration
+
+Create a `.env` file in the repository root:
+
+```dotenv
+GOOGLE_API_KEY=your_gemini_api_key
+```
+
+`main.py` loads this value with `python-dotenv` and passes it to the
+OpenAI-compatible Gemini client. Do not commit real credentials. The existing
+`.gitignore` excludes `.env` from version control.
+
+The current endpoint and model values are defined directly in
+`website-summarizer/main.py`:
+
+- Gemini base URL: `https://generativelanguage.googleapis.com/v1beta/openai/`
+- Gemini model: `gemini-4-hydrogen`
+- Ollama URL: `http://localhost:11434/v1/chat/completions`
+- Ollama model: `gemma3:270m`
+
 The script sends the Ollama request and the Gemini request independently, but
 the Ollama request is made before the Gemini request. A failed local Ollama
 service can therefore stop the script before Gemini is called.
