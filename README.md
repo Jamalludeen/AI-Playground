@@ -89,6 +89,25 @@ The current endpoint and model values are defined directly in
 - Ollama URL: `http://localhost:11434/v1/chat/completions`
 - Ollama model: `gemma3:270m`
 
+## Run the website summarizer
+
+1. Start Ollama and make sure `gemma3:270m` is installed.
+2. Activate the virtual environment.
+3. From the summarizer directory, run:
+
+	```powershell
+	Set-Location website-summarizer
+	python main.py
+	```
+
+The target URL is currently hard-coded as `https://www.udemy.com` in
+`main.py`. The script prints the Gemini-generated Markdown summary. The local
+Ollama response is currently created but not printed because its print
+statement is commented out.
+
+To summarize another page, change the URL passed to
+`fetch_website_contents(...)` in `website-summarizer/main.py`.
+
 The script sends the Ollama request and the Gemini request independently, but
 the Ollama request is made before the Gemini request. A failed local Ollama
 service can therefore stop the script before Gemini is called.
