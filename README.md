@@ -51,3 +51,13 @@ python main.py
 ```
 
 Change the URL passed to `fetch_website_contents(...)` in `main.py` to summarize another website.
+
+## Chatbot Notebook
+
+Start Jupyter from the repository root:
+
+```powershell
+jupyter notebook
+```
+
+Open `chatbot/main.ipynb` and select the project virtual environment as the notebook kernel.
