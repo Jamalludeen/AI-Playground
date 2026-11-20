@@ -61,3 +61,9 @@ jupyter notebook
 ```
 
 Open `chatbot/main.ipynb` and select the project virtual environment as the notebook kernel.
+
+## Troubleshooting
+
+- Ensure the virtual environment is active and required packages are installed.
+- Verify `GOOGLE_API_KEY` is set in `.env`.
+- For Ollama errors, confirm Ollama is running on port `11434` and `gemma3:270m` is available.
