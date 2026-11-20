@@ -24,3 +24,30 @@ For the chatbot notebook, also install Jupyter:
 ```powershell
 python -m pip install jupyter
 ```
+
+## Configuration
+
+Create a `.env` file in the repository root:
+
+```dotenv
+GOOGLE_API_KEY=your_gemini_api_key
+```
+
+Keep API keys out of source control. `.env` is already excluded by `.gitignore`.
+
+## Run
+
+Start Ollama and install `gemma3:270m` if you want the local Ollama request:
+
+```powershell
+ollama pull gemma3:270m
+```
+
+Then run the summarizer:
+
+```powershell
+Set-Location website-summarizer
+python main.py
+```
+
+Change the URL passed to `fetch_website_contents(...)` in `main.py` to summarize another website.
