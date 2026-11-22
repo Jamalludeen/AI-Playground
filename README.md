@@ -16,13 +16,7 @@ Python 3.10 or newer is recommended.
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install beautifulsoup4 requests python-dotenv openai
-```
-
-For the chatbot notebook, also install Jupyter:
-
-```powershell
-python -m pip install jupyter
+python -m pip install -r requirements.txt
 ```
 
 ## Configuration
